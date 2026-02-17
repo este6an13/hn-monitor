@@ -35,35 +35,34 @@ class StoryWorker(
             val notificationsEnabled = prefs.getBoolean("notificationsEnabled", false)
             val threshold = prefs.getInt("ThresholdValue", 250)
 
-            val (existingIds, existingStories) = StoryStore.load(context)
+            // Load previous stories only to detect new ones for notifications
+            val (previousIds, _) = StoryStore.load(context)
 
-            val fetchedIds = existingIds.toMutableSet()
-            val fetchedStories = existingStories.toMutableList()
+            // Fetch all top/best story IDs
+            val allStoryIds = fetchTopAndBestStories()
 
-            val newIds = fetchTopAndBestStories() - existingIds
-
-            for (id in newIds) {
+            // Fetch details for all stories and filter by threshold
+            val newStories = mutableListOf<Story>()
+            for (id in allStoryIds) {
                 val story = fetchStoryDetails(id, threshold) ?: continue
+                newStories.add(story)
 
-                // Avoid duplicates
-                if (fetchedIds.add(story.id)) {
-                    fetchedStories.add(story)
-
-                    if (notificationsEnabled) {
-                        showNotification(story)
-                    }
-
-                    StoryStore.save(
-                        context,
-                        fetchedIds,
-                        fetchedStories.sortedByDescending { it.score }
-                    )
-
-                    notifyDataUpdated()
-
-                    Log.d("StoryWorker", "Saved story ${story.id}")
+                // Show notification for new stories
+                if (notificationsEnabled && !previousIds.contains(story.id)) {
+                    showNotification(story)
                 }
             }
+
+            // Replace all existing stories with the new ones
+            val newIds = newStories.map { it.id }.toSet()
+            StoryStore.save(
+                context,
+                newIds,
+                newStories.sortedByDescending { it.score }
+            )
+            notifyDataUpdated()
+
+            Log.d("StoryWorker", "Replaced all stories. Now have ${newStories.size} stories above threshold $threshold")
 
             Result.success()
         } catch (e: Exception) {
@@ -95,7 +94,7 @@ class StoryWorker(
         val obj = JSONObject(json)
         val score = obj.optInt("score", 0)
 
-        if (score <= threshold || obj.optString("type") != "story") return null
+        if (score < threshold || obj.optString("type") != "story") return null
 
         return Story(
             id = id,

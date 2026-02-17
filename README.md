@@ -17,7 +17,9 @@ The app uses the [Official Hacker News API](https://github.com/HackerNews/API) t
 ## How it works
 
 - A background worker periodically queries the Hacker News API
-- New stories above the configured threshold are stored locally
+- Stories above the configured threshold are fetched and stored locally
+- Old stories are completely replaced with the fresh fetch to prevent accumulation
+- If the threshold changes, stories below the new threshold are automatically removed
 - If notifications are enabled, new stories trigger a system notification
 - Opening the app displays the stored stories in a sorted list
 
