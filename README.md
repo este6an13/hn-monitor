@@ -1,4 +1,6 @@
-# HN Monitor
+# 🕯️HN Monitor - High-Scoring Story Sentinel
+
+> *A quiet watcher in the background: guarding attention by revealing only what truly rises above the noise of Hacker News.*
 
 HN Monitor is an Android application that passively monitors Hacker News and surfaces only high-impact stories, allowing users to stay informed without repeatedly visiting the site or getting pulled into endless scrolling.
 
@@ -13,6 +15,31 @@ The app uses the [Official Hacker News API](https://github.com/HackerNews/API) t
 - Local persistence of stories
 - Stories sorted by score
 - Simple, distraction-free UI with direct links to articles
+
+## Demo
+
+▶️ _Click on a thumbnail to watch the video on YouTube_
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://www.youtube.com/shorts/6AWXTQHYtOw" target="_blank">
+        <img src="resources/thumbnails/video-0.jpeg" width="200">
+      </a>
+      <br>
+      <strong>Basic Usage</strong>
+    </td>
+    <td align="center">
+      <a href="https://www.youtube.com/shorts/W5gF41gnusU" target="_blank">
+        <img src="resources/thumbnails/video-1.jpeg" width="200">
+      </a>
+      <br>
+      <strong>Adjusting the Threshold</strong>
+    </td>
+  </tr>
+</table>
+
+
 
 ## How it works
 
@@ -34,6 +61,33 @@ To try the application:
     ```
     app/build/outputs/apk/debug
     ```
+
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="resources/images/img-0.jpg" width="200">
+      <br>
+      List of Stories
+    </td>
+    <td align="center">
+      <img src="resources/images/img-1.jpg" width="200">
+      <br>
+      Receiving Notifications
+    </td>
+    <td align="center">
+      <img src="resources/images/img-2.jpg" width="200">
+      <br>
+      Opening a Story
+    </td>
+    <td align="center">
+      <img src="resources/images/img-3.jpg" width="200">
+      <br>
+      Adjusting the Threshold
+    </td>
+  </tr>
+</table>
 
 
 ## Roadmap / Ideas
