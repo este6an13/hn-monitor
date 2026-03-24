@@ -43,13 +43,15 @@ class StoryWorker(
 
             // Fetch details for all stories and filter by threshold
             val newStories = mutableListOf<Story>()
+            val storiesToNotify = mutableListOf<Story>()
+            
             for (id in allStoryIds) {
                 val story = fetchStoryDetails(id, threshold) ?: continue
                 newStories.add(story)
 
-                // Show notification for new stories
+                // Queue notification for new stories
                 if (notificationsEnabled && !previousIds.contains(story.id)) {
-                    showNotification(story)
+                    storiesToNotify.add(story)
                 }
             }
 
@@ -61,6 +63,11 @@ class StoryWorker(
                 newStories.sortedByDescending { it.score }
             )
             notifyDataUpdated()
+
+            // Show notifications only AFTER data is safely stored
+            for (story in storiesToNotify) {
+                showNotification(story)
+            }
 
             Log.d("StoryWorker", "Replaced all stories. Now have ${newStories.size} stories above threshold $threshold")
 
