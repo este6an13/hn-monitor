@@ -12,7 +12,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.ToggleButton
+import androidx.appcompat.widget.SwitchCompat
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var thresholdEditText: EditText
-    private lateinit var notificationToggle: ToggleButton
+    private lateinit var notificationToggle: SwitchCompat
     private lateinit var storyAdapter: StoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {

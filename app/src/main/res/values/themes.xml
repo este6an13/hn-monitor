@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Theme.MyApplication" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/surface_dark</item>
+        <item name="colorPrimaryVariant">@color/bg_dark</item>
+        <item name="colorOnPrimary">@color/text_primary</item>
+        
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/accent_default</item>
+        <item name="colorSecondaryVariant">@color/accent_default</item>
+        <item name="colorOnSecondary">#000000</item>
+        
+        <!-- Customize status bar color -->
+        <item name="android:statusBarColor">@color/bg_dark</item>
+    </style>
 </resources>
